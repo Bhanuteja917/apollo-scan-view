@@ -6,6 +6,7 @@ import { TrendingUp, TrendingDown, ExternalLink, Calendar } from 'lucide-react';
 
 interface ScanSummaryProps {
   isLoading: boolean;
+  hasResults: boolean;
 }
 
 const mockData = {
@@ -17,7 +18,21 @@ const mockData = {
   gitlabUrl: 'https://gitlab.com/user/my-awesome-app'
 };
 
-export function ScanSummary({ isLoading }: ScanSummaryProps) {
+export function ScanSummary({ isLoading, hasResults }: ScanSummaryProps) {
+  if (!hasResults && !isLoading) {
+    return (
+      <Card className="shadow-md">
+        <CardHeader>
+          <CardTitle>Latest Scan Summary</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8 text-muted-foreground">
+            <p>Search for a GitLab project to view scan results</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
   if (isLoading) {
     return (
       <Card className="shadow-md">

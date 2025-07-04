@@ -4,6 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 interface ScoreChartProps {
   isLoading: boolean;
+  hasResults: boolean;
 }
 
 const mockChartData = [
@@ -17,7 +18,21 @@ const mockChartData = [
   { date: '2024-01-15', score: 8.5 },
 ];
 
-export function ScoreChart({ isLoading }: ScoreChartProps) {
+export function ScoreChart({ isLoading, hasResults }: ScoreChartProps) {
+  if (!hasResults && !isLoading) {
+    return (
+      <Card className="shadow-md">
+        <CardHeader>
+          <CardTitle>Score Trend</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8 text-muted-foreground">
+            <p>Score trend will appear here after searching</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
   if (isLoading) {
     return (
       <Card className="shadow-md">

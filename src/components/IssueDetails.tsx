@@ -6,6 +6,7 @@ import { AlertTriangle, Info, AlertCircle, FileText } from 'lucide-react';
 interface IssueDetailsProps {
   selectedScan: number;
   isLoading: boolean;
+  hasResults: boolean;
 }
 
 const mockIssues = {
@@ -58,7 +59,24 @@ const mockIssues = {
   ]
 };
 
-export function IssueDetails({ selectedScan, isLoading }: IssueDetailsProps) {
+export function IssueDetails({ selectedScan, isLoading, hasResults }: IssueDetailsProps) {
+  if (!hasResults && !isLoading) {
+    return (
+      <Card className="shadow-md">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <FileText className="h-5 w-5" />
+            <span>Scan Issues</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8 text-muted-foreground">
+            <p>Issue details will appear here after searching</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
   if (isLoading) {
     return (
       <Card className="shadow-md">

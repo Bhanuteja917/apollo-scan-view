@@ -14,12 +14,19 @@ import { ThemeToggle } from '@/components/ui/theme-toggle';
 export function Dashboard() {
   const [selectedScan, setSelectedScan] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasResults, setHasResults] = useState(false);
 
   const handleSearch = async (projectName: string) => {
     setIsLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     setIsLoading(false);
+    setHasResults(true);
+  };
+
+  const handleClear = () => {
+    setHasResults(false);
+    setSelectedScan(1);
   };
 
   return (
@@ -42,23 +49,24 @@ export function Dashboard() {
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8 space-y-8">
         {/* Search Section */}
-        <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+        <SearchBar onSearch={handleSearch} onClear={handleClear} isLoading={isLoading} hasResults={hasResults} />
         
         {/* Latest Scan Summary */}
-        <ScanSummary isLoading={isLoading} />
+        <ScanSummary isLoading={isLoading} hasResults={hasResults} />
         
         {/* Score Chart */}
-        <ScoreChart isLoading={isLoading} />
+        <ScoreChart isLoading={isLoading} hasResults={hasResults} />
         
         {/* Scan History Table */}
         <ScanHistory 
           selectedScan={selectedScan} 
           onSelectScan={setSelectedScan}
           isLoading={isLoading}
+          hasResults={hasResults}
         />
         
         {/* Issue Details */}
-        <IssueDetails selectedScan={selectedScan} isLoading={isLoading} />
+        <IssueDetails selectedScan={selectedScan} isLoading={isLoading} hasResults={hasResults} />
       </main>
     </div>
   );

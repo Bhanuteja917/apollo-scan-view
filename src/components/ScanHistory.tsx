@@ -16,6 +16,7 @@ interface ScanHistoryProps {
   selectedScan: number;
   onSelectScan: (scanId: number) => void;
   isLoading: boolean;
+  hasResults: boolean;
 }
 
 const mockHistoryData = [
@@ -66,7 +67,21 @@ const mockHistoryData = [
   }
 ];
 
-export function ScanHistory({ selectedScan, onSelectScan, isLoading }: ScanHistoryProps) {
+export function ScanHistory({ selectedScan, onSelectScan, isLoading, hasResults }: ScanHistoryProps) {
+  if (!hasResults && !isLoading) {
+    return (
+      <Card className="shadow-md">
+        <CardHeader>
+          <CardTitle>Scan History</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8 text-muted-foreground">
+            <p>Scan history will appear here after searching</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
   if (isLoading) {
     return (
       <Card className="shadow-md">
