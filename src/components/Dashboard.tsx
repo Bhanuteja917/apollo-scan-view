@@ -9,6 +9,7 @@ import { ScoreChart } from './ScoreChart';
 import { ScanHistory } from './ScanHistory';
 import { IssueDetails } from './IssueDetails';
 import { Search, GitBranch } from 'lucide-react';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 export function Dashboard() {
   const [selectedScan, setSelectedScan] = useState<number>(1);
@@ -33,6 +34,7 @@ export function Dashboard() {
               </div>
               <h1 className="text-2xl font-bold text-foreground">ApolloScan Dashboard</h1>
             </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
